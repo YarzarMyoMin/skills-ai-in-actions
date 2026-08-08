@@ -4,8 +4,7 @@ on:
   issues:
     types: [opened]
 
-permissions:
-  models: read
+permissions:  
   issues: write
 
 jobs:
@@ -19,7 +18,8 @@ jobs:
         id: ai-response
         uses: actions/ai-inference@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}          
+          token: ${{ secrets.GITHUB_TOKEN }}
+          model: auto
           system-prompt: |
             You are a GitHub issue assistant. Your task is to analyze newly opened issues for completeness.
             Provide concise, helpful suggestions, ask clarifying questions and identify any missing information that would help resolve the issue faster.
@@ -32,6 +32,8 @@ jobs:
             ---
             {% raw %}${{ github.event.issue.body }}{% endraw %}
             ---
+        # env:
+        #   COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
       - name: Comment results on the issue
         uses: peter-evans/create-or-update-comment@v4
         with:
