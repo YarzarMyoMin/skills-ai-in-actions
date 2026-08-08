@@ -13,11 +13,9 @@ jobs:
         id: ai-response
         uses: actions/ai-inference@v3
         with:
-          prompt: |
-            Give me a programming joke.
-          # model: ""
-        # env:
-        #   COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_PAT }}
+          prompt: Give me a programming joke.          
+        env:
+          COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
       - name: Display AI Response
         run: |
           echo "## 🤖 AI Response" >> $GITHUB_STEP_SUMMARY
